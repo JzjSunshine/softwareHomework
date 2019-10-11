@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>医院化验管理系统</title>、
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/page-soft.css"/>
+		
+		<script type="text/javascript" src="js/tools.js"></script>
+		<script type="text/javascript" src="js/SQL.js"></script>
+		<script type="text/javascript">
+			var con = new ActiveXObject("ADODB.Connection");
+			con.ConnectionString = "DRIVER={MySQL ODBC 5.1 Driver};OPTION=3;SERVER=127.0.0.1;User ID=root;Password=jmm123;Database=mysql;Port=3306";
+			con.open;
+			var rs = new ActiveXObject("ADODB.Recordset");
+			rs.open("select * from user", con);
+			while (!rs.eof) {
+			var u = rs.Fields("User");
+			document.write(u);
+			rs.moveNext;
+			}
+			rs.close();
+			rs = null; 
+			con.close();
+			con = null;
+		</script>
+		
+		
+		<script type="text/javascript">
+			function delA(){
+				var tr = this.parentNode.parentNode.parentNode;
+				var name = tr.children[1].innerHTML;
+				var flag = confirm("确认删除"+name+"吗？");
+				if(flag){
+					tr.parentNode.removeChild(tr);
+				}
+				return false;
+			};
+			window.onload = function(){
+				
+				
+				//设置imgList宽度
+				var imgList = document.getElementById("imgList");
+				var imgArr = document.getElementsByTagName("img");
+				
+				imgList.style.width = 960*imgArr.length + "px";
+				
+				
+				//设置导航条居中
+				var navDiv = document.getElementById("navDiv");
+				var outer = document.getElementById("outer");
+				
+				navDiv.style.left = (outer.offsetWidth - navDiv.offsetWidth)/2 + "px";
+				var index = 0;
+				var outer = document.getElementById("outer");
+				var allA = outer.getElementsByTagName("a");
+				allA[index].style.backgroundColor = "black";
+				
+				
+				//点击超链接切换到指定图片
+				for(var i=0;i<allA.length;i++){
+					allA[i].num = i;
+					allA[i].onclick = function(){
+						
+						clearInterval(timer);
+					//alert(this.num);
+						index = this.num;
+						
+						setA();
+						//imgList.style.left = -520*index + "px";
+						//修改正在选中的a
+						move(imgList,"left",-960*index,50,function(){
+							
+							//动画执行完毕，开启自动切换
+							autoChange();
+						});
+
+					};
+				}
+				 autoChange();	 
+				//创建方法，设置选中的a
+				function setA(){
+					if(index >= imgArr.length - 1){
+						index = 0;
+						
+						/*
+						 此时显示当前索引的是否是最后一张图片
+						 通过CSS将最后一张切换为第一张
+						 * */
+						imgList.style.left = 0;
+					}
+					
+					for(var i=0;i<allA.length;i++){
+						 allA[i].style.backgroundColor = "";//内联样式比默认样式优先级高，故使用空串，恢复之前的默认样式
+						 
+					}
+					allA[index].style.backgroundColor = "black";
+				}
+				
+				
+				var timer
+				//自动切换图片
+				function autoChange(){
+					//开启定时器
+					timer = setInterval(function(){
+						index++;
+						index %= imgArr.length;
+						move(imgList,"left",-960*index,50,function(){
+							setA();
+						});
+					},3000);
+				}
+				
+				
+				var infoTable = document.getElementById("infoTable");
+				var allAinInfo = infoTable.getElementsByTagName("a");
+				console.log(allAinInfo.length);
+				for(var j=0;j<allAinInfo.length;j++){
+					if(i%2 === 0){
+						allAinInfo[j].onclick = delA;
+					}else{//绑定修改
+						/*console.log(i);*/
+						allAinInfo[j].onclick = alterInfo;
+					}
+				}
+				
+				var AddQueryShow = document.getElementById("AddQueryShow");
+				var addButton = document.getElementById("addButton");
+				addButton.onclick = function(){
+					var pNum = document.getElementById("pNum").value;
+					var pName = document.getElementById("pName").value;
+					var HostNum = document.getElementById("HostNum").value;
+					var sex = document.getElementById("sex").value;
+					var age = document.getElementById("age").value;
+					var DateTime = document.getElementById("DateTime").value;
+					var depart = document.getElementById("depart").value;
+					var inspector = document.getElementById("inspector").value;
+					
+					var seNum = parseInt(pNum);
+					
+					var tr = document.createElement("tr");
+					
+					tr.innerHTML  = "<td id='index'>"+pNum+"</td>"+
+									"<td id='perName'>"+pName+"</td>"+
+									"<td>"+HostNum+"</td>"+
+									"<td>"+sex+"</td>"+
+									"<td>"+age+"</td>"+
+									"<td>"+DateTime+"</td>"+
+									"<td>"+depart+"</td>"+
+									"<td>"+inspector+"</td>"+
+									"<td><button><a href='javascript:;'>删除</a></button>"+" "+
+									"<button class='btnalert' id='btnalertID'><a href='#'>修改</a></button></td>";
+									
+					var NewDela = tr.getElementsByTagName("a")[0];
+					NewDela.onclick = delA;
+					
+					var NewModa = tr.getElementsByTagName("a")[1];
+					NewModa.onclick = alterInfo;
+					
+					var patientTableID = document.getElementById("patientTableID");
+					var tbody = patientTableID.getElementsByTagName("tbody")[0];
+					tbody.appendChild(tr);
+				};
+				
+				var btnQuery = document.getElementById("btnQuery");
+				btnQuery.onclick = queryInfo;
+			};
+			function queryInfo(){
+				
+				var inQuery = document.getElementById("inQuery");
+				var num = parseInt(inQuery.value);
+				var mytable = document.getElementById("patientTableID");
+//				var num = window.prompt("请输入要查询的患者编号");
+				if(num > mytable.rows.length || num < 1){
+					alert("查询范围错误！");
+					return;
+				}
+				var flag = 1;
+				for(var i=1;i<mytable.rows.length && flag;i++){
+					var seNum = parseInt(mytable.rows[i].cells[0].innerHTML);
+					if(seNum === num){
+						var tr = document.createElement("tr");
+						     
+						    var pName;
+							var HostNum;
+							var sex ;
+							var age ;
+							var DateTime ;
+							var depart ;
+							var inspector ;
+							
+						for(var j=1;j<mytable.rows[i].cells.length - 1;){
+							pName = mytable.rows[i].cells[j].innerHTML;
+							j++;
+							HostNum = mytable.rows[i].cells[j].innerHTML;
+							j++;
+							sex = mytable.rows[i].cells[j].innerHTML;
+							j++;
+							age = mytable.rows[i].cells[j].innerHTML;
+							j++;
+							DateTime = mytable.rows[i].cells[j].innerHTML;
+							j++;
+							depart = mytable.rows[i].cells[j].innerHTML;
+							j++;
+							inspector = mytable.rows[i].cells[j].innerHTML;
+							j++;
+						}
+						tr.innerHTML  = "<td>"+seNum+"</td>"+
+										"<td>"+pName+"</td>"+
+										"<td>"+HostNum+"</td>"+
+										"<td>"+sex+"</td>"+
+										"<td>"+age+"</td>"+
+										"<td>"+DateTime+"</td>"+
+										"<td>"+depart+"</td>"+
+										"<td>"+inspector+"</td>";
+						var queryTableID = document.getElementById("queryTableID");
+						var tbody = queryTableID.getElementsByTagName("tbody")[0];
+						tbody.appendChild(tr);
+						flag = 0;	
+					}
+				}
+				return false;
+			}
+			function alterInfo(){
+				//var no = j+1;
+				var tr = this.parentNode.parentNode.parentNode;
+				/*console.log(tr.children[0].innerHTML);*/
+				var no = parseInt(tr.children[0].innerHTML);//感应到的本行的编号
+				var a = window.prompt("请输入要修改的列数");
+				a--;
+				if(a == 0){
+					alert("不能修改编号！");
+					return;
+				}
+				var mytable = document.getElementById("patientTableID");
+					
+				for (var i=1;i<mytable.rows.length;i++) {
+					var num = parseInt(mytable.rows[i].cells[0].innerHTML);
+					/*console.log(num);*/
+					if(num === no){
+						if(a < mytable.rows[i].cells.length-1){
+							var cellText=mytable.rows[i].cells[a].innerText;
+							mytable.rows[i].cells[a].innerHTML="<input onblur=blur1(this,"+i+","+a+") type='text' value="
+							+cellText+">";
+						}
+					}
+				}
+				return false;
+			}
+			function blur1(obj,i,a){
+				document.getElementById("patientTableID").rows[i].cells[a].innerText=obj.value;
+				return false;
+			}
+		</script>
+		
+		
+	</head>
+	<body>
+		
+		<!--header开始-->
+		<div class="header w">
+			
+			<!--创建导航条-->
+            <ul class="nav">
+            	<li>
+            		<a href="#">医院首页</a>
+            		<p>Back to home</p>
+            	</li>
+            	<li>
+            		<a href="#">服务中心</a>
+            		<p>What we have for you</p>
+            	</li>
+            	<li>
+					<a href="#">党群建设</a>
+					<p>Things we do</p>
+				</li>
+				<li>
+					<a href="#">联系我们</a>
+					<p>Follow our updates</p>
+				</li>
+				<li>
+					<a href="#">健康科普</a>
+					<p>Ways to reach us</p>
+				</li>
+            </ul>
+			
+			<div class="log">
+				<a href="#" alt="网站的log">
+					<img src="img/banner/HUST.png"/>
+				</a>
+			</div>
+		</div>
+		<!--header结束-->
+		
+		<!--banner开始-->
+		<div id="outer" class="banner w">
+			<ul id="imgList">
+				<li><img src="img/banner/协和医院2副本.png"/></li>
+				<li><img src="img/banner/协和医院3副本.png"/></li>
+				<li><img src="img/banner/协和医院4副本.jpg"/></li>
+				<li><img src="img/banner/协和医院副本.jpg"/></li>
+				
+				<li><img src="img/banner/协和医院2副本.png"/></li>
+			</ul>
+			
+			<div id="navDiv">
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+			</div>
+		</div>
+		<!--banner结束-->
+		
+		<!--病人信息表开始-->
+		<div id="infoTable" class="w">
+			<h1 >患者信息一览表</h1>
+				<div id="showInfo" class="showInfo">
+					<table class="patientTable" id="patientTableID">
+					<tr>
+						<th>编号</th>
+						<th>姓名</th>
+						<th>住院号</th>
+						<th>性别</th>
+						<th>年龄</th>
+						<th>送检日期</th>
+						<th>科室</th>
+						<th>检验医师</th>
+						<th>&nbsp;</th>
+					</tr>
+					
+					<tr>
+						<td id="index">1</td>
+						<td id="perName">Jerry</td>
+						<td>20191010</td>
+						<td>男</td>
+						<td>19</td>
+						<td>2019.10.9</td>
+						<td>内一科</td>
+						<td>Tom</td>
+						<td>
+							<button class="btninfo"><a href="#">删除</a></button>
+							<button class="btnalert" id="btnalertID"><a href="#">修改</a></button>
+						</td>
+					</tr>
+					<tr>
+						<td id="index">2</td>
+						<td id="perName">Jerry</td>
+						<td>20191006</td>
+						<td>男</td>
+						<td>20</td>
+						<td>2019.10.9</td>
+						<td>内一科</td>
+						<td>Tom</td>
+						<td>
+							<button class="btninfo"><a href="#">删除</a></button>
+							<button class="btnalert" id="btnalertID"><a href="#">修改</a></button>
+						</td>
+					</tr>
+					<tr>
+						<td id="index">3</td>
+						<td id="perName">Bob</td>
+						<td>20191006</td>
+						<td>男</td>
+						<td>28</td>
+						<td>2019.10.9</td>
+						<td>内一科</td>
+						<td>Tom</td>
+						<td>
+							<button class="btninfo"><a href="#">删除</a></button>
+							<button class="btnalert" id="btnalertID"><a href="#">修改</a></button>
+						</td>
+					</tr>
+				</table>
+				</div>
+		</div>
+		<!--病人信息表结束-->
+		
+		<!--查询，添加，模块开始-->
+		 <div id="AddQueryShow" class="AddQueryShow w clearfix">
+		 	<!--添加模块开始-->
+		 	<div  class="Add">
+				<h1>添加患者</h1>
+				<table >
+					<tr>
+						<td id="newPer" class="word">编号：</td>
+						<td>
+							<input type="text" name="pNum" id="pNum" class="txt" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td id="newPer" class="word">姓名：</td>
+						<td>
+							<input type="text" name="pName" id="pName" class="txt" value="" />
+						</td>
+					</tr>
+					
+					<tr >
+						<td id="newPer" class="word">住院号: </td>
+						<td>
+							<input type="text" name="HostNum" id="HostNum" class="txt" value="" />
+						</td>
+					</tr>
+					
+					<tr >
+						<td id="newPer" class="word">性别: </td>
+						<td>
+							<input type="text" name="sex" id="sex" class="txt" value="" />
+						</td>
+					</tr>
+					<tr >
+						<td id="newPer" class="word">年龄: </td>
+						<td>
+							<input type="text" name="age" id="age" class="txt" value="" />
+						</td>
+					</tr>
+					<tr >
+						<td class="word">送检日期: </td>
+						<td>
+							<input type="text" name="DateTime" id="DateTime" class="txt" value="" />
+						</td>
+					</tr>
+					<tr >
+						<td class="word">病区: </td>
+						<td>
+							<input type="text" name="depart" id="depart" class="txt" value="" />
+						</td>
+					</tr>
+					<tr >
+						<td class="word">检验者: </td>
+						<td>
+							<input type="text" name="inspector" id="inspector" class="txt" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="left">
+							<button  id="addButton" class="btn">
+								提交
+				       		 </button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!--添加模块结束-->
+			
+			<!--查询模块开始-->
+			<div class="Query">
+				<h1>查询患者信息</h1>
+				<form action="#">
+       				<!--
+       				     placeholder：在文本框和文本域中来指定提示文字（水印）
+       				         在IE8及其以下班得版本不支持，需要兼容则需要使用js
+       				-->
+       				<input class="txt" type="text" id="inQuery" placeholder="请输入患者编号"/>
+       				<br />
+       				<button class="btn" id="btnQuery">查询</button>
+       			</form>
+       			
+       			<!--显示查询信息开始-->
+				<div class="showQuery">
+					<h1>显示查询结果</h1>
+					<table border="1" class="queryTable" id="queryTableID">
+						<tr>
+							<th>编号</th>
+							<th>姓名</th>
+							<th>住院号</th>
+							<th>性别</th>
+							<th>年龄</th>
+							<th>送检日期</th>
+							<th>科室</th>
+							<th>检验医师</th>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td id="perName">Bob</td>
+							<td>20191006</td>
+							<td>男</td>
+							<td>28</td>
+							<td>2019.10.9</td>
+							<td>内一科</td>
+							<td>Tom</td>
+						</tr>
+					</table>
+				</div>
+			<!--显示查询信息结束-->
+			</div>
+			<!--查询模块结束-->
+			
+			
+		 </div>
+		<!--查询，添加，模块结束-->
+		
+	<!--footer开始-->
+		<div class="footer">
+			<div class="w footer-div">
+				<p class="copy">Copyright 2019. HUST SoftWare Homework. All Rights Reserved.</p>	
+				<p>Site Powered by Wordpress. Design and Developed by HUSTERS.</p>
+				<p><a href="#">Home</a> | <a href="#">About</a> | <a href="#">Products</a> | <a href="#">Services</a> | <a href="#">Contact</a></p>
+				<p><a href="#">Privacy Policy</a> | <a href="">Terms of use</a></p>
+			</div>
+		</div>
+		<!--footer结束-->
+	</body>
+		
+</html>
