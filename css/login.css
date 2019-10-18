@@ -1,8 +1,108 @@
+body{
+	background: url(../img/bd-bg.png) repeat-x;
+	height:1000px;
+}
+.w{
+	 width: 960px;
+	 margin: 0px auto;
+}
+
+.header{
+	background-color:#600808;
+	opacity:0.6;
+	padding-top:37px;
+	padding-bottom:0px;
+}
+
+.mynav{
+	float: right;
+	margin-top: 22px;;
+}
+
+.mynav li{
+	float: left;
+	/*上下：0 左右 10 8*/
+	padding: 0 10px 8px;
+	/*padding:5px 10px 15px;：上 5px，左右 10px，下 15px*/
+	/*打开拾色器额方法：点击左边倒数第三个图标*/
+	border-left: 1px #d6d6d6 dotted;
+}
+
+.mynav a{
+	color: #666;
+	font: bold 14px Georgia;
+	text-decoration: none;
+}
+.mynav a:hover{
+	color: #alalal;
+	text-decoration: underline;
+}
+/*设置导航中小标题
+  在chorm中，最小支持12px
+ * */
+.mynav p{
+	color: #b7b7b7;
+	font: 11px Tahoma;
+}
+
+
+
+.content fieldset, img, input, button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;  /*外面环绕线*/
+}
+.content {
+	height:600px;
+}
+.content input {
+    padding-top: 0;
+    padding-bottom: 0;
+      /*字体的自动识别*/
+}
+.content select, input {
+    vertical-align: middle;
+}
+
+/*输入字居中显示*/
+.content select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+
+.content textarea {
+    resize: none;  /*不可以随意拖动*/
+}
+.content img{
+    display: block;
+}
+
+/*设置banner*/
+.banner{
+	height:356px;
+	background: url(../img/banner/banner-bg.png) no-repeat bottom center;
+	/*开启子元素的绝对定位一般开启父元素的相对定位*/
+	position:relative;
+}
+#outer{
+	width: 960px;
+	height: 342px;
+	/*margin: 50px auto;*/
+	margin: 10px auto 20px;
+	background-color: #B7B7B7;
+	padding: 10px 5px;
+	
+	position: relative;
+	overflow: hidden;
+}
+	
 #login_wrap {
     width:100%;
     min-width: 1300px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
+   
 }
 
 .login-box {
@@ -12,24 +112,25 @@
     top: 50px;
     right:170px;
     background: #fff;
+    background-color: #C7E1FA;
 }
-.title {
+.content .title {
     height: 80px;
     line-height: 80px;
     background: #ffc900;
     font-size: 22px;
     padding:0 30px; 
 }
-.title img {
+.content .title img {
     float: left;
     margin-top: 12px;
     margin-right: 15px;
 }
+
 .login_inner {    
     overflow: hidden;
     padding: 10px 50px;    
 }
-
 .alert {
     margin: 0 auto;
     padding: 6px 10px;
@@ -41,12 +142,14 @@
     margin-bottom: 17px;
     font-size: 12px;
 }
+
 .login_inner form{
     width: 100%;
     overflow: hidden;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
 }
+
 .login_inner input {
     display: inline-block;
     width: 246px;
@@ -62,14 +165,7 @@
     -webkit-transition: box-shadow 0.25s linear 0s;
     margin-bottom: 17px;
 }
-.verify input {
-    width: 95px;
-    margin-right: 20px;
-    float: left;
-    margin-bottom: 0;
-}
-
-.submit_btn button {
+.content .submit_btn button {
     width: 120px;
     height: 40px;
     border: none;
@@ -82,7 +178,7 @@
     cursor: pointer;
     float: left;
 }
-.auto_login {
+.content .auto_login {
    margin-top: 15px;
 }
 .submit_btn .checkbox {
@@ -90,11 +186,11 @@
     width: 17px;
     margin: 7px 5px 0 54px;
 }
+
 .submit_btn  span {
     line-height: 35px;
 }
-
-.reg {
+.content .reg {
     border-top: 1px solid #eeeeee;
     margin-top: 15px;
     width: 100%;
@@ -104,6 +200,55 @@
     text-align: center;
     font-size: 16px;
 }
-.reg a {
+
+.content .reg a {
     color: #fc7f7f;
+}
+
+.footer{
+	width:100%;
+	height:183px;
+	/*background-color: #bfa;*/
+	background: url(../img/picture/foot-bg.png) repeat-x;
+	
+	/*另外的一种设置方式*/
+	/*height:173px;
+	background: #333;
+	border-top:10px solid #4c4c4c;*/
+}
+.footer .footer-div{
+	padding-top: 18px;
+}
+.footer p{
+	margin-left: 8px;
+	margin-right: 23px;
+	margin-bottom: 6px;
+}
+.footer a, .footer p{
+	color: #999;
+	font: 11px Helvetica;
+	text-decoration: none;
+	word-spacing: 2px;
+}
+.footer a:hover{
+	color: #c8c6c6;
+	text-decoration: underline;
+}
+.footer .copy{
+	float: right;
+	/*处理IE6双倍边距的bug*/
+	display:inline;
+}
+
+.clearfix:before,
+.clearfix:after{
+	/*添加一个内容*/
+	content:"";
+	/*转换为一个块元素*/
+	display:block;
+	/*清除两侧浮动*/
+	clear:both;
+}
+.clearfix{
+	zoom:1;
 }
