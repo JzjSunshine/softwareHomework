@@ -159,19 +159,20 @@
 					alert("查询范围错误！");
 					return;
 				}
+				var tr;
+				var pName;
+				var HostNum;
+				var sex ;
+				var age ;
+				var DateTime ;
+				var depart ;
+				var inspector ;
+				var seNum;
 				var flag = 1;
 				for(var i=1;i<mytable.rows.length && flag;i++){
-					var seNum = parseInt(mytable.rows[i].cells[0].innerHTML);
+					seNum = parseInt(mytable.rows[i].cells[0].innerHTML);
 					if(seNum === num){
-						var tr = document.createElement("tr");
-						     
-						    var pName;
-							var HostNum;
-							var sex ;
-							var age ;
-							var DateTime ;
-							var depart ;
-							var inspector ;
+						tr = document.createElement("tr");
 							
 						for(var j=1;j<mytable.rows[i].cells.length - 1;){
 							pName = mytable.rows[i].cells[j].innerHTML;
@@ -197,14 +198,35 @@
 										"<td>"+DateTime+"</td>"+
 										"<td>"+depart+"</td>"+
 										"<td>"+inspector+"</td>";
-						var queryTableID = document.getElementById("queryTableID");
-						var tbody = queryTableID.getElementsByTagName("tbody")[0];
-						tbody.appendChild(tr);
+//						var queryTableID = document.getElementById("queryTableID");
+//						var tbody = queryTableID.getElementsByTagName("tbody")[0];
+//						tbody.appendChild(tr);
 						flag = 0;	
 					}
 				}
-//				var queryTableID = document.getElementById("queryTableID");
-//				console.log(rows[1].cells[0].innerHTML);
+				
+				var queryTableID = document.getElementById("queryTableID");
+				for(var i=0;i<queryTableID.rows[1].cells.length - 1;){
+					console.log(queryTableID.rows[1].cells[i].innerHTML);
+					queryTableID.rows[1].cells[i].innerHTML = seNum;
+					i++;
+					console.log(queryTableID.rows[1].cells[i].innerHTML);
+					queryTableID.rows[1].cells[i].innerHTML = pName;
+					i++;
+					console.log(queryTableID.rows[1].cells[i].innerHTML);
+					queryTableID.rows[1].cells[i].innerHTML = HostNum;
+					i++;
+					queryTableID.rows[1].cells[i].innerHTML = sex;
+					i++;
+					queryTableID.rows[1].cells[i].innerHTML = age;
+					i++;
+					queryTableID.rows[1].cells[i].innerHTML = DateTime;
+					i++;
+					queryTableID.rows[1].cells[i].innerHTML = depart;
+					i++;
+					queryTableID.rows[1].cells[i].innerHTML = inspector;
+					i++;
+				}
 				
 				return false;
 			}

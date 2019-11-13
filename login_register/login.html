@@ -9,6 +9,46 @@
   
     <link rel="stylesheet" type="text/css" href="../css/login.css">
     <link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+    
+    <script type="text/javascript">
+    	function checkAccoutn(){
+    		
+    		var accountID = document.getElementById("accountID");
+    		if(accountID.value.length < 6 || accountID.value.length > 12)
+    		{
+//  			alert(accountID.value.lenght);
+//  			console.log(accountID.value.lenght);
+				alert("用户名必须为6—12位");
+    			//document.getElementById("accountID").value = "用户名必须为6—12位";
+    		}
+    		
+    		
+    	}
+    	function checkPwd()
+    	{
+    		var pwdID = document.getElementById("pwdID");
+    		if(pwdID.value.length<6 || pwdID.value.length > 12)
+    		{
+    			alert("密码必须为6—12位");
+    			//document.getElementById("pwdID").innerHTML = "<font color='red'>密码必须为6—12位</font>";
+    		}
+    	}
+    	window.onload = function(){
+    		var submit_btn = document.getElementById("submit_btnID");
+    		
+    		submit_btnID.onclick = function(){
+    			var pwdID = document.getElementById("pwdID").value;
+    			var accountID = document.getElementById("accountID").value;
+    			console.log(pwdID+" aaaa  "+accountID);
+		        location.replace("../Software.html");
+		        if(accountID.equals("admin123") && pwdID.equals("123456")){
+		        	location.replace("../Software.html");
+		        }else{
+		        	alert("用户名或密码有误，请检查后输入！");
+		        }
+    		};
+    	};
+    </script>
 </head>
 
 <body>
@@ -67,19 +107,9 @@
 	        		<div id="errorMsg" class="alert alert-danger" ></div>
 					<form id="loginForm" action="" method="post" accept-charset="utf-8">
 	        			<input type="hidden" name="action" value="login"/>
-						<input name="username" type="text" placeholder="请输入账号" autocomplete="off">
-	        			<input name="password" type="text" placeholder="请输入密码" autocomplete="off">
-	        			<div class="verify">
-						<input name="check" type="text" placeholder="请输入验证码" autocomplete="off">
-						<span><img src="checkCode" alt="" onclick="changeCheckCode(this)"></span>
-						<script type="text/javascript">
-							//图片点击事件
-							function changeCheckCode(img) {
-								img.src="checkCode?"+new Date().getTime();
-							}
-						</script>
-				</div>
-				<div class="submit_btn">
+						<input id="accountID" name="username" type="text" placeholder="请输入账号" autocomplete="off" onblur="checkAccoutn()">
+	        			<input id="pwdID" name="password" type="password" placeholder="请输入密码" autocomplete="off" onblur="checkPwd()">
+				<div class="submit_btn" id="submit_btnID">
 	        				<button type="button">登录</button>
 	        				<div class="auto_login">
 	        					<input type="checkbox" name="" class="checkbox">
@@ -94,6 +124,8 @@
 		</div>
 		<!--content结束-->
 		
+	    
+	    
 		<!--footer开始-->
 		<div class="footer">
 			<div class="w footer-div">

@@ -1,13 +1,44 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<script type="text/javascript">
-			console.log(6%2 === 0);
-		</script>
-	</head>
-	<body>
-		
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script type="text/javascript">
+	window.onload = function(){
+		function check(){
+			var objUsername = document.getElementById("username"); //获得username
+			var objPassword1 = document.getElementById("password1"); //获得password
+			var objPassword2 = document.getElementById("password2");
+			if(objUsername.value.length<6 ||objUsername.value.length>12){
+			document.getElementById("userMsg").innerHTML = "<font color='red'>用户名必须为6—12位</font>";
+			objUsername.innerText=""; //把文本框中的文本置为""
+			document.getElementById("username").focus(); //得到文本框的焦点
+			}
+			
+			if(objPassword1.value.length<6 ||objPassword1.value.length>12){
+			document.getElementById("pswMsg1").innerHTML = "<font color='red'>密码必须为6—12位</font>";
+			objPassword1.innerText="";
+			document.getElementById("password1").focus();
+			}
+			
+			if(objPassword1.value != objPassword2.value){
+			document.getElementById("pswMsg2").innerHTML = "<font color='red'>两次密码不一致</font>";
+			objPassword2.innerText="";
+			document.getElementById("password2").focus();
+			}
+		}
+	};
+</script>
+</head>
+ 
+<body>
+	<form >
+		username:<input type="text" name="username" id="username" οnblur="check()"><span id="userMsg"></span><br>
+		password1:<input type="text" name="password" id="password1" οnblur="check()"><span id="pswMsg1"></span><br>
+		password2:<input type="text" name="password" id="password2" οnblur="check()"><span id="pswMsg2"></span><br>
+	<input type="button" value="ok" >
+</form>
+
+</body>
+
 </html>

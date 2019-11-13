@@ -1,6 +1,5 @@
 body{
 	background: url(../img/bd-bg.png) repeat-x;
-	height:1000px;
 }
 .w{
 	 width: 960px;
@@ -46,7 +45,9 @@ body{
 }
 
 
-
+.content{
+	background: url(../img/banner/协和医院3.jpg) no-repeat center;
+}
 .content fieldset, img, input, button {
     border: none;
     padding: 0;
