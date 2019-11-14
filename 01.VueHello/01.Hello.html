@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="app">{{message}}</div>
+<script src="../js/vue.js"></script>
+<script>
+    //声明式编程
+    const app = new Vue({
+        el:'#app',//用于挂载的元素
+        data:{//定义数据
+            message:'Hello world'
+        }
+    })
+</script>
+</body>
+</html>
