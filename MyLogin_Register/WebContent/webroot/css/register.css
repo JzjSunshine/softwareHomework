@@ -1,0 +1,191 @@
+body{
+	background: url(../img/bd-bg.png) repeat-x;
+	height:1000px;
+}
+.w{
+	 width: 960px;
+	 margin: 0px auto;
+}
+
+.header{
+	background-color:#600808;
+	opacity:0.6;
+	padding-top:37px;
+	padding-bottom:0px;
+}
+
+.mynav{
+	float: right;
+	margin-top: 22px;;
+}
+
+.mynav li{
+	float: left;
+	/*上下：0 左右 10 8*/
+	padding: 0 10px 8px;
+	/*padding:5px 10px 15px;：上 5px，左右 10px，下 15px*/
+	/*打开拾色器额方法：点击左边倒数第三个图标*/
+	border-left: 1px #d6d6d6 dotted;
+}
+
+.mynav a{
+	color: #666;
+	font: bold 14px Georgia;
+	text-decoration: none;
+}
+.mynav a:hover{
+	color: #alalal;
+	text-decoration: underline;
+}
+/*设置导航中小标题
+  在chorm中，最小支持12px
+ * */
+.mynav p{
+	color: #b7b7b7;
+	font: 11px Tahoma;
+}
+
+
+rg_layout{
+	width: 100%;
+	height: 585px;
+	background: url(../images/register_bg.png) no-repeat center;
+	background-size: 100% 780px;
+	overflow: hidden;
+}
+.rg_layout .rg_form{
+	width: 886px;
+	height: 534px;
+	background-color: #fff;
+	margin:24px auto;
+	border:8px solid #eeeeee;
+	box-sizing: border-box;
+}
+
+.rg_layout .rg_form > .rg_form_left{
+	width:256px;
+	float: left;
+	padding-top:20px;
+	padding-left: 20px;
+	box-sizing: border-box;
+}
+.rg_layout .rg_form > .rg_form_center{
+	width:358px;
+	float: left;
+	padding-top:10px;
+	box-sizing: border-box;
+	font-size: 14px;
+}
+.rg_layout .rg_form > .rg_form_right{
+	width:256px;
+	float: right;
+}
+
+.rg_form > .rg_form_left > p:first-child{
+	font-size: 20px;
+	color:#ffcd26;
+	
+}
+.rg_form > .rg_form_left > p:last-child{
+	font-size: 20px;
+	color: #a6a6a6;
+}
+.rg_form > .rg_form_center .td_left{
+	width: 65px;
+	text-align: right;
+}
+.rg_form > .rg_form_center table{
+	vertical-align: top;
+}
+.rg_form > .rg_form_center table tr{
+	height: 50px;
+}
+.rg_form > .rg_form_center .td_right{
+	width: 293px;
+}
+.rg_form_center .td_right > input[type="text"],.rg_form_center .td_right > input[type="date"]{
+	width: 256px;
+	height: 32px;
+	line-height: 32px;
+	box-sizing: border-box;
+	padding: 6px 12px;
+	border-radius: 4px;
+	border:1px solid #a6a6a6;
+	float: right;
+}
+.rg_form > .rg_form_center .td_right.gender{
+	padding-left: 40px;
+	box-sizing: border-box;
+}
+.rg_form > .rg_form_center .td_right.check{
+	padding-left: 36px;
+	box-sizing: border-box;
+}
+.rg_form > .rg_form_center .td_right > .check{
+	width: 118px;
+	float: left;
+	margin-right:14px;
+}
+.rg_form > .rg_form_center .td_right > .submit{
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	background-color: #ffc900;
+	font-size: 14px;
+}
+.rg_form > .rg_form_right >p{
+	float: right;
+	font-size: 14px;
+	padding: 20px 12px 0 0;
+	box-sizing: border-box;
+}
+.rg_form > .rg_form_right >p >a{
+	color: #fc8989;
+}
+.footer{
+	width:100%;
+	height:183px;
+	/*background-color: #bfa;*/
+	background: url(../img/picture/foot-bg.png) repeat-x;
+	
+	/*另外的一种设置方式*/
+	/*height:173px;
+	background: #333;
+	border-top:10px solid #4c4c4c;*/
+}
+.footer .footer-div{
+	padding-top: 18px;
+}
+.footer p{
+	margin-left: 8px;
+	margin-right: 23px;
+	margin-bottom: 6px;
+}
+.footer a, .footer p{
+	color: #999;
+	font: 11px Helvetica;
+	text-decoration: none;
+	word-spacing: 2px;
+}
+.footer a:hover{
+	color: #c8c6c6;
+	text-decoration: underline;
+}
+.footer .copy{
+	float: right;
+	/*处理IE6双倍边距的bug*/
+	display:inline;
+}
+
+.clearfix:before,
+.clearfix:after{
+	/*添加一个内容*/
+	content:"";
+	/*转换为一个块元素*/
+	display:block;
+	/*清除两侧浮动*/
+	clear:both;
+}
+.clearfix{
+	zoom:1;
+}

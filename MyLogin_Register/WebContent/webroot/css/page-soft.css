@@ -1,0 +1,290 @@
+@CHARSET "UTF-8";
+body{
+	/*水平方向垂直*/
+	background:url(../img/bd-bg.png) repeat-x;	
+	/*height: 3000px;*/
+}
+.w{
+	 width: 960px;
+	 margin: 0px auto;
+}
+
+.header{
+	background-color:#600808;
+	opacity:0.6;
+	padding-top:37px;
+	padding-bottom: 0px;
+}
+
+.nav{
+	float: right;
+	margin-top: 22px;;
+}
+
+.nav li{
+	float: left;
+	/*上下：0 左右 10 8*/
+	padding: 0 10px 8px;
+	/*padding:5px 10px 15px;：上 5px，左右 10px，下 15px*/
+	/*打开拾色器额方法：点击左边倒数第三个图标*/
+	border-left: 1px #d6d6d6 dotted;
+}
+
+.nav a{
+	color: #666;
+	font: bold 14px Georgia;
+	text-decoration: none;
+}
+.nav a:hover{
+	color: #alalal;
+	text-decoration: underline;
+}
+/*设置导航中小标题
+  在chorm中，最小支持12px
+ * */
+.nav p{
+	color: #b7b7b7;
+	font: 11px Tahoma;
+}
+
+/*
+ 轮播图的样式
+ * */
+#outer{
+	width: 960px;
+	height: 342px;
+	/*margin: 50px auto;*/
+	margin: 10px auto 20px;
+	background-color: #B7B7B7;
+	padding: 10px 0px;
+	
+	position: relative;
+	overflow: hidden;
+}
+	
+#outer #imgList{
+	list-style: none;
+	float: left;
+	
+	/*给子元素开启绝对定位,最好给父元素开启相对定位
+	 相对于最近的一个具有定位属性的父包含块进行定位
+	 * */
+	position:absolute;
+	
+	/*
+	 每向右移动一个图片，为520px
+	 * */
+	left:0px;
+}
+	
+#outer #imgList li{
+	float: left;
+	margin: 0 10px;
+	 /*padding:5px 10px;：上下 5px，左右 10px
+	   padding:5px 10px 15px;：上 5px，左右 10px，下 15px
+	   padding:5px 10px 15px 20px;：上 右 下 左（从上开始顺时针） */
+	/*width:2600px;*/
+	
+}
+
+#outer #navDiv{
+		position: absolute;
+		bottom: 15px;
+		
+		/*使用js动态的设置*/
+		left:197px;
+	}
+	
+#outer #navDiv a{
+	float: left;
+	width: 15px;
+	height: 15px;
+	background-color: red;
+	margin: 0 5px;/*上下 左右*/
+	opacity: 0.5;
+	/*兼容IE8*/
+	filter: alpha(opacity=50);
+}
+	
+#outer #navDiv a:hover{
+	background-color: black;
+}
+
+.patientTable {
+	border-spacing: 1px;
+	
+	margin: 80px auto 10px auto;
+}
+
+.patientTable th,td {
+	border:1px solid black;
+	text-align:center;/*设置水平居中*/
+    vertical-align:middle;/*设置垂直居中*/
+}
+.queryTable{
+	margin-top:
+	width:570px;
+}
+.queryTable th,td{
+	border:1px solid black;
+	text-align:center;/*设置水平居中*/
+    vertical-align:middle;/*设置垂直居中*/
+}
+#infoTable ul {
+	list-style-type: none;
+}
+#showInfo{
+	margin:15px 0px;
+}
+#infoTable li {
+	border-style: solid;
+	border-width: 1px;
+	padding: 5px;
+	margin: 5px;
+	background-color: #99ff99;
+	float: left;
+}
+.patientTable{
+	width:960px;
+	height:100px;
+	margin: 0 auto;
+	border:1px solid black;
+	/**
+	 * table和td边框之间默认有一个距离
+	 *   通过border-spacing属性可以设置这个距离；
+	 * 
+	 * */
+	border-spacing: 0px;
+	/**
+	 * border-collapse 规定是否合并表格边框。 
+	 * 		separate 默认值。边框会被分开。不会忽略 border-spacing 和 empty-cells 属性。 
+            collapse 如果可能，边框会合并为一个单一的边框。会忽略 border-spacing 和 empty-cells 属性。 
+		如果设置了边框合并，则border-spaceing自动失效
+	 * */
+	border-collapse: collapse;
+	
+	/*background-color: #BBFFAA;*/
+}
+#showInfo tr:nth-child(odd){
+	/*设置隔行变色的效果*/
+	background-color: #F9F9FA;
+}
+#showInfo tr:hover{
+	background-color: #B7B7B7;
+}
+
+#infoTable h1{
+	/*margin: 50px auto;*/
+	color:#444444;
+	font:18px/1px Georgia bold;
+	margin: 0px auto;
+	text-align: center;
+	padding:6px 0 25px 0;/*从上顺时针*/
+	background: url(../img/banner/line.png) no-repeat bottom center;
+}
+.AddQueryShow .Add{
+	float:left;
+	width:380px;
+	height:470px;
+	background-color:  #D6D6D6/*#F9F9FA*/;
+	
+}
+
+.AddQueryShow .Query{
+	float:left;
+	width:570px;
+	height:470px;
+	/*height:500px;*/
+	background-color:  #D6D6D6/* #F9F9FA*/;
+	margin:0px 0px 0px 10px; 
+}
+.AddQueryShow h1{
+	color:#11719e;
+	font: 20px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
+}
+.AddQueryShow .queryTable{
+	margin-top:20px;
+	width:570px;
+}
+
+/*解决高度塌陷*/
+.clearfix:before,
+.clearfix:after{
+	/*添加一个内容*/
+	content:"";
+	/*转换为一个块元素*/
+	display:block;
+	/*清除两侧浮动*/
+	clear:both;
+}
+.clearfix{
+	zoom:1;
+}
+
+.AddQueryShow .txt{
+	width: 277px;
+	height: 33px;
+	background: url(../img/input.png) no-repeat;
+	
+	/*给IE6设置 背景不随元素滚动*/
+	_background-attachment: fixed;
+	
+	/*去掉默认边框*/
+	border:none;
+	/*去除默认内外边距*/
+	padding:0px 10px;             /*设施内边距，要设置将width减去20*/
+	margin:5px 0px 5px;
+	
+	line-height:33px;
+}
+.AddQueryShow .btn{
+	width:163px;
+	height:32px;
+	background: url(../img/sprind.png) no-repeat 0px -27px;
+	border:none;
+	/*去除默认内外边距*/
+	padding:0px;
+	margin:11px 0px 23px; 
+	
+	color:#fff;				
+	font: 13px Georgia;
+	text-align: left;
+	text-indent: 1em;
+	cursor:pointer;
+}
+
+.footer{
+	width:100%;
+	height:183px;
+	/*background-color: #bfa;*/
+	background: url(../img/picture/foot-bg.png) repeat-x;
+	
+	/*另外的一种设置方式*/
+	/*height:173px;
+	background: #333;
+	border-top:10px solid #4c4c4c;*/
+}
+.footer .footer-div{
+	padding-top: 18px;
+}
+.footer p{
+	margin-left: 8px;
+	margin-right: 23px;
+	margin-bottom: 6px;
+}
+.footer a, .footer p{
+	color: #999;
+	font: 11px Helvetica;
+	text-decoration: none;
+	word-spacing: 2px;
+}
+.footer a:hover{
+	color: #c8c6c6;
+	text-decoration: underline;
+}
+.footer .copy{
+	float: right;
+	/*处理IE6双倍边距的bug*/
+	display:inline;
+}
+/*
